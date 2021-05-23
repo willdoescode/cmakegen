@@ -7,3 +7,5 @@ edition = "2018"
 license = "MIT"
 
 [dependencies]
+toml = "0.5.8"
+clap = "3.0.0-beta.2"
