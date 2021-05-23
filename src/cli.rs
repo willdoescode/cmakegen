@@ -4,7 +4,7 @@ use clap::{AppSettings, Clap};
 #[clap(setting = AppSettings::ColoredHelp)]
 pub struct Cli {
     #[clap(subcommand)]
-    cmd: Cmd,
+    pub cmd: Cmd,
 }
 
 #[derive(Clap, Debug)]
@@ -15,10 +15,10 @@ pub enum Cmd {
 
 #[derive(Clap, Debug)]
 pub struct New {
-    name: String,
+    pub name: String,
 }
 
 #[derive(Clap, Debug)]
 pub struct Init {
-    name: Option<String>,
+    pub name: Option<String>,
 }
