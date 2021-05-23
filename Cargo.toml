@@ -2,7 +2,7 @@
 name = "cmakegen"
 description = "Tool to generate cmake files"
 authors = ["Will Lane <williamlane923@gmail.com>"]
-version = "0.1.0"
+version = "0.1.1"
 edition = "2018"
 license = "MIT"
 
