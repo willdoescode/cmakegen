@@ -1,0 +1,8 @@
+[package]
+name = "cmakegen"
+authors = ["Will Lane <williamlane923@gmail.com>"]
+version = "0.1.0"
+edition = "2018"
+license = "MTI"
+
+[dependencies]
