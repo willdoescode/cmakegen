@@ -2,7 +2,7 @@ use clap::Clap;
 
 mod cli;
 use cli::*;
-use std::{env, fs};
+use std::{env, fs, io::ErrorKind};
 use std::{fs::File, io::Write};
 
 fn main() {
@@ -11,17 +11,20 @@ fn main() {
     match &cli.cmd {
         Cmd::Init(Init { name, .. }) => {
             File::create("CMakeLists.txt")
-                .and_then(|file| Ok(base_cmake(file, name)))
+                .map(|file| base_cmake(file, name))
                 .expect("Could not create file");
         }
         Cmd::New(New { name, .. }) => {
-            match fs::create_dir(name) {
-                Err(error) => panic!("Error: {}", error.to_string()),
-                Ok(_) => {}
+            if let Err(error) = fs::create_dir(name) {
+                if error.kind() == ErrorKind::AlreadyExists {
+                    println!("Directory with name \"{}\" already exists.", name);
+                    std::process::exit(1);
+                }
+                panic!("Error: {:?}", error.kind());
             }
 
             File::create(format!("{}/CMakeLists.txt", name))
-                .and_then(|file| Ok(base_cmake(file, &Some(name.to_owned()))))
+                .map(|file| base_cmake(file, &Some(name.to_owned())))
                 .expect("Could not create file");
         }
     }
